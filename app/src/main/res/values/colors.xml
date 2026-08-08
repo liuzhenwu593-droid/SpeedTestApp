@@ -1,0 +1,18 @@
+<resources>
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorAccent">#FF03DAC5</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="bgColor">#FFF5F5F5</color>
+    <color name="cardBg">#FFFFFFFF</color>
+    <color name="textPrimary">#FF1A1A1A</color>
+    <color name="textSecondary">#FF666666</color>
+    <color name="connectedGreen">#FF4CAF50</color>
+    <color name="disconnectedRed">#FFEF5350</color>
+    <color name="speedFast">#FF4CAF50</color>
+    <color name="speedMedium">#FFFF9800</color>
+    <color name="speedSlow">#FFEF5350</color>
+    <color name="divider">#FFE0E0E0</color>
+    <color name="iconTint">#FF6200EE</color>
+</resources>

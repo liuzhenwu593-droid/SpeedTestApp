@@ -1,40 +1,32 @@
 package com.shadiao.nb.data
 
 import kotlinx.serialization.Serializable
+import java.io.Serializable as JSerializable
 
 @Serializable
 data class ProxyNode(
     val id: String,
     val name: String,
-    val region: String,
+    val protocol: String,       // vmess, vless, trojan, ss, ssr
     val address: String,
     val port: Int,
-    val protocol: String = "vless",
-    val uuid: String,
-    val security: String = "tls",
-    val type: String = "ws",
-    val host: String,
-    val sni: String,
-    val path: String,
-    val fingerprint: String = "chrome",
-    val encryption: String = "none",
-    var latency: Long = -1L,
-    var downloadSpeed: Float = 0f,
-    var isSelected: Boolean = false
-) {
-    val regionFlag: String
-        get() = when (region) {
-            "香港" -> "🇭🇰"
-            "韩国" -> "🇰🇷"
-            "日本" -> "🇯🇵"
-            "新加坡" -> "🇸🇬"
-            "美国" -> "🇺🇸"
-            else -> "🌐"
+    val rawConfig: String,      // 原始 uri 或 JSON 配置
+    var latency: Int = -1,      // -1 = 未测试, -2 = 超时
+    var speedTestTime: Long = 0
+) : JSerializable {
+    val latencyText: String
+        get() = when {
+            latency == -1 -> "—"
+            latency == -2 -> "超时"
+            latency == 0 -> "测速中…"
+            else -> "${latency}ms"
         }
 
-    val displayName: String
-        get() = "$regionFlag $name"
-
-    val latencyText: String
-        get() = if (latency < 0) "—" else "$latency"
+    val latencyColor: String
+        get() = when {
+            latency <= 0 -> "#EF5350"
+            latency < 200 -> "#4CAF50"
+            latency < 500 -> "#FF9800"
+            else -> "#EF5350"
+        }
 }

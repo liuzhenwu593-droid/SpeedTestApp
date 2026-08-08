@@ -1,22 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">沙雕VPN</string>
-    <string name="connect">连接</string>
-    <string name="disconnect">断开</string>
-    <string name="connecting">连接中…</string>
-    <string name="disconnecting">断开中…</string>
-    <string name="speed_test">测速</string>
-    <string name="testing">测速中…</string>
+    <string name="settings">设置</string>
+    <string name="node_list">节点列表</string>
+    <string name="app_proxy">分应用代理</string>
+    <string name="about">关于</string>
+
+    <!-- Main -->
+    <string name="tap_to_connect">点击连接</string>
     <string name="connected">已连接</string>
+    <string name="connecting">连接中…</string>
     <string name="disconnected">未连接</string>
+    <string name="disconnecting">断开中…</string>
+    <string name="tap_to_disconnect">点击断开</string>
+
+    <!-- Nodes -->
     <string name="select_node">选择节点</string>
-    <string name="no_nodes">暂无节点</string>
-    <string name="vpn_permission">需要 VPN 权限</string>
-    <string name="latency">延迟</string>
-    <string name="ms">ms</string>
-    <string name="mbps">Mbps</string>
-    <string name="upload">上传</string>
-    <string name="download">下载</string>
-    <string name="auto_select">自动选择</string>
-    <string name="current_node">当前节点</string>
+    <string name="speed_test">测速</string>
+    <string name="speed_test_all">全部测速</string>
+    <string name="update_subscription">更新订阅</string>
+    <string name="no_nodes">暂无节点，请更新订阅</string>
+    <string name="latency_ms">%d ms</string>
+    <string name="timeout">超时</string>
+    <string name="testing">测速中…</string>
+
+    <!-- Settings -->
+    <string name="mode_settings">代理模式</string>
+    <string name="mode_global">全局模式</string>
+    <string name="mode_rule">分流模式</string>
+    <string name="app_proxy_settings">分应用代理</string>
+    <string name="app_proxy_enabled">启用分应用代理</string>
+    <string name="app_proxy_hint">需要查询已安装应用权限，请在弹窗中授权</string>
+    <string name="theme_settings">主题设置</string>
+    <string name="theme_light">白天模式</string>
+    <string name="theme_dark">夜间模式</string>
+    <string name="theme_system">跟随系统</string>
+    <string name="subscription_url">订阅链接</string>
+    <string name="auto_update">自动更新订阅（24小时）</string>
+    <string name="auto_speedtest">自动测速</string>
+    <string name="check_update">检查更新</string>
+
+    <!-- About -->
+    <string name="join_tg">加入 TG 群</string>
+    <string name="official_website">官方网站</string>
+    <string name="version">版本</string>
+    <string name="tg_url">https://t.me/shadiaovpn</string>
+    <string name="web_url">https://shadiao.hynb.ccwu.cc</string>
+
+    <!-- Notification -->
+    <string name="vpn_channel_name">VPN 连接状态</string>
+    <string name="vpn_channel_desc">显示 VPN 连接状态通知</string>
+    <string name="vpn_notification_title">沙雕VPN 运行中</string>
+    <string name="vpn_notification_text">已连接到 %s</string>
+
+    <!-- Update -->
+    <string name="update_available">发现新版本</string>
+    <string name="update_download">下载更新</string>
+    <string name="update_latest">已是最新版本</string>
+    <string name="update_failed">检查更新失败</string>
+
+    <!-- Default subscription -->
+    <string name="default_subscription_url">https://meitu.ccwu.cc/sub?token=27882ec74d1d608cbc6d0f6756bc174f</string>
+    <string name="default_update_url">https://yunpan.hynb.ccwu.cc/raw/update.json</string>
 </resources>

@@ -5,7 +5,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -15,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "沙雕VPN"
+rootProject.name = "ShadiaoVPN"
 include(":app")
