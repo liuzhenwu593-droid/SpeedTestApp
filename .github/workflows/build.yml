@@ -85,7 +85,7 @@ jobs:
       - name: Build
         run: |
           ext="${{ matrix.ext || '' }}"
-          filename="cfdata-${{ matrix.goos }}-${{ matrix.goarch }}${ext}"
+          filename="大绿龙优选-${{ matrix.goos }}-${{ matrix.goarch }}${ext}"
           echo "Building ${filename}..."
           cd combined_refactor
           go build -trimpath -ldflags "-s -w -X main.appVersion=${{ steps.set-version.outputs.VERSION }}" -o ../release_assets/${filename} .
@@ -160,14 +160,17 @@ jobs:
           go build -ldflags "-s -w -X main.appVersion=${{ steps.set-version.outputs.VERSION }}" -o ../app/src/main/jniLibs/arm64-v8a/libcfdata.so .
 
       - name: Prepare Release Keystore
+        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
-          if [ -z "$ANDROID_KEYSTORE_BASE64" ]; then
-            echo "ANDROID_KEYSTORE_BASE64 secret is required for release APK signing."
-            exit 1
-          fi
           printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/cfdata-release.keystore"
+
+      - name: Prepare Release Keystore (skip)
+        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 == '' }}
+        run: |
+          echo "ANDROID_KEYSTORE_BASE64 secret not set, building unsigned APK."
+          echo "To sign the APK, add ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD secrets."
 
       - name: Build release APK
         env:
@@ -179,17 +182,30 @@ jobs:
         run: gradle assembleRelease --no-daemon
 
       - name: Verify APK Contains Backend
+        if: ${{ hashFiles('app/build/outputs/apk/release/app-release.apk') != '' || hashFiles('app/build/outputs/apk/release/app-release-unsigned.apk') != '' }}
         run: |
-          unzip -l app/build/outputs/apk/release/app-release.apk | tee apk-contents.txt
+          apk_path="app/build/outputs/apk/release/app-release.apk"
+          if [ ! -f "$apk_path" ]; then
+            apk_path="app/build/outputs/apk/release/app-release-unsigned.apk"
+          fi
+          unzip -l "$apk_path" | tee apk-contents.txt
           grep -q "lib/arm64-v8a/libcfdata.so" apk-contents.txt
-          unzip -l app/build/outputs/apk/release/app-release.apk "lib/arm64-v8a/libcfdata.so"
+          unzip -l "$apk_path" "lib/arm64-v8a/libcfdata.so"
 
       - name: Prepare APK Asset
         run: |
           mkdir -p release_assets
-          cp app/build/outputs/apk/release/app-release.apk release_assets/cfdata-android-arm64.apk
-          cd release_assets
-          sha256sum cfdata-android-arm64.apk | awk '{print $1}' > cfdata-android-arm64.apk.sha256
+          apk_path="app/build/outputs/apk/release/app-release.apk"
+          if [ ! -f "$apk_path" ]; then
+            apk_path="app/build/outputs/apk/release/app-release-unsigned.apk"
+          fi
+          if [ -f "$apk_path" ]; then
+            cp "$apk_path" release_assets/大绿龙优选-android-arm64.apk
+            cd release_assets
+            sha256sum 大绿龙优选-android-arm64.apk | awk '{print $1}' > 大绿龙优选-android-arm64.apk.sha256
+          else
+            echo "No APK found, skipping APK artifact."
+          fi
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -270,7 +286,7 @@ jobs:
         with:
           tag_name: ${{ steps.get-version.outputs.VERSION }}
           target_commitish: ${{ github.sha }}
-          name: "CFData-WEB Release ${{ steps.get-version.outputs.VERSION }}"
+          name: "大绿龙优选 Release ${{ steps.get-version.outputs.VERSION }}"
           body: |
             ## ${{ steps.get-version.outputs.VERSION }} 发布说明
 
